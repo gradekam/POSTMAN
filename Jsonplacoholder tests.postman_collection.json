@@ -80,6 +80,10 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"const responseData = pm.response.json();\r",
+							"\r",
+							"pm.globals.set(\"userId\", responseData[0].id);\r",
+							"\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});"
@@ -139,7 +143,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://jsonplaceholder.typicode.com/users?email=Nathan@yesenia.net",
+					"raw": "https://jsonplaceholder.typicode.com/users?email=Rey.Padberg@karina.biz",
 					"protocol": "https",
 					"host": [
 						"jsonplaceholder",
@@ -152,7 +156,7 @@
 					"query": [
 						{
 							"key": "email",
-							"value": "Nathan@yesenia.net"
+							"value": "Rey.Padberg@karina.biz"
 						},
 						{
 							"key": "username",
@@ -243,12 +247,27 @@
 		},
 		{
 			"name": "Create new album for the user id global param",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"console.log(albums[100].title)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"userId\": {{userId}},\r\n    \"title\": \"New added album\",\r\n}"
+					"raw": "{\r\n    \"userId\": {{userId}},\r\n    \"title\": \"New added album\",\r\n}\r\n\r\n"
 				},
 				"url": {
 					"raw": "https://jsonplaceholder.typicode.com/albums",
@@ -260,6 +279,72 @@
 					],
 					"path": [
 						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://jsonplaceholder.typicode.com/albums",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/albums",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Requestbin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "000999888",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Ania\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://enm4kx83j8wv.x.pipedream.net/users?properWayByJson=if required not byJson by Dev",
+					"protocol": "https",
+					"host": [
+						"enm4kx83j8wv",
+						"x",
+						"pipedream",
+						"net"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "properWayByJson",
+							"value": "if required not byJson by Dev"
+						}
 					]
 				}
 			},
